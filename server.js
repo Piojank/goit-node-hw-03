@@ -1,5 +1,24 @@
-const app = require('./app')
+const mongoose = require("mongoose");
+const app = require("./app");
+require("dotenv").config();
 
-app.listen(3000, () => {
-  console.log("Server running. Use our API on port: 3000")
-})
+const PORT = 3000;
+const uriDb = process.env.DB_HOST;
+
+const connection = mongoose.connect(uriDb, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "db-contacts",
+});
+
+console.log(uriDb);
+connection
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log("Database connection successful");
+            console.log(`Server running. Use our API on port: ${PORT}`);
+        });
+    })
+    .catch((err) =>
+        console.log(`Server not running. Error message: ${err.message}`)
+    );
