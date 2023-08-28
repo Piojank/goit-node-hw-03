@@ -11,7 +11,6 @@ const connection = mongoose.connect(uriDb, {
     dbName: "db-contacts",
 });
 
-console.log(uriDb);
 connection
     .then(() => {
         app.listen(PORT, () => {
